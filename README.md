@@ -228,7 +228,7 @@ Add - Discussion of increasing the size of file uploads allowed by NGINX who has
 in the Administration backup and restore transfer of a site's code are much larger than the default size.  Also discuss the importance of either changing this back to something
 lower and/or including size limits in Drupal content types that allow contributor uploads so you reduce the risk of denial of service threats.
 
-<img src="img/nginx site.conf.png" width="400">
+<img src="img/nginx site.conf.png" width="550">
 
 
 # TO BE CONTINUED
