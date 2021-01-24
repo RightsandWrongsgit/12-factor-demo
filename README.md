@@ -226,7 +226,7 @@ vendor subdirectory
 
 Add - Discussion of increasing the size of file uploads allowed by NGINX who has a default limit of 1MB.  This is done because most Drupal site Tar files that you would import
 in the Administration backup and restore transfer of a site's code are much larger than the default size.  Also discuss the importance of either changing this back to something
-lower and/or including size limits in Drupal content types that allow contributor uploads so you reduce the risk of denial of service threats.
+lower and/or including size limits in Drupal content types that allow contributor uploads so you reduce the risk of denial of service threats.  (https://www.tecmint.com/limit-file-upload-size-in-nginx/#:~:text=By%20default%2C%20Nginx%20has%20a,http%2C%20server%20or%20location%20context.)  & (https://scaledynamix.com/blog/increasing-file-upload-size-limit-in-nginx/)
 
 <img src="img/nginx site.conf.png" width="550">
 
