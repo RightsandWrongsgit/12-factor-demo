@@ -82,6 +82,9 @@ In the above line - "Start Services:"\
 Understand the sequence of multiple compose files at:\
 https://docs.docker.com/compose/reference/overview/#specifying-multiple-compose-files
 \
+Understand how a 'makefile' works at:\
+https://www.gnu.org/software/make/manual/make.html
+\
 ### The docker-compose.yml file
 The ‘docker-compose.yml’ file is the place where the container environment is established.  There are all sorts of videos and other resources that tell you how to set up
 the container so I don’t go into a bunch of detail here.  The key thing to know is that containers are made up of ‘images’ and that ‘images’ are pulled from places like
