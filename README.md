@@ -82,8 +82,12 @@ In the above line - "Start Services:"\
 Understand the sequence of multiple compose files at:\
 https://docs.docker.com/compose/reference/overview/#specifying-multiple-compose-files
 \
-Understand how a 'makefile' works at:\
-https://www.gnu.org/software/make/manual/make.html
+
+It may seem unusual to have a 'makefile' as part of a drupal docker repository since makefiles are most commonly used for coordination of 'C-language' compiling.  But 'make' 
+more generally offers scripting capability much like you might find in BASH or one of the other POSIX shell command tools.  It offers pretty common and generally easy syntax but 
+also has an advantage of some date/time comparison triggering of updates across project components.  At the most basic level, take a look at its use in a very similar situation
+to how it is used in this respository by reviewing this brief article (https://docs.php.earth/interop/make/).  For a detailed understanding of how a 'makefile' works you might
+review the complete documentation at https://www.gnu.org/software/make/manual/make.html
 \
 ### The docker-compose.yml file
 The ‘docker-compose.yml’ file is the place where the container environment is established.  There are all sorts of videos and other resources that tell you how to set up
