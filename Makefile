@@ -47,7 +47,7 @@ PHONY += standard_load
 
 standard_load:
 	rm src/.keep
-	composer create-project drupal/recommended-project:8.9.11 src
+	composer create-project drupal/recommended-project:8.9.13 src
 
 PHONY += standard_install
 
