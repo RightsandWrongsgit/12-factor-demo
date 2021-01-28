@@ -72,8 +72,10 @@ It may seem unusual to have a 'makefile' as part of a drupal docker repository s
 more generally offers scripting capability much like you might find in BASH or one of the other POSIX shell command tools.  It offers pretty common and generally easy syntax but 
 also has an advantage of some date/time comparison triggering of updates across project components.  At the most basic level, take a look at its use in a very similar situation
 to how it is used in this respository by reviewing this brief article (https://docs.php.earth/interop/make/).  Some very sophisticated use of multiple and well coordinated
-makefiles can be see in this project right here on github (https://github.com/druidfi/tools).  For a detailed understanding of how a 'makefile' works you might review the complete
-documentation at https://www.gnu.org/software/make/manual/make.html
+makefiles can be see in this project right here on github (https://github.com/druidfi/tools).  HERE IS A KEY HINT - If you see something you want to try to customize in the 
+'makefile' to suit your own purposes, don't be afraid to try it; the syntax is as simple as "TARGET:PREREQUISITES" on one line followed on lines below by TAB and the commands you
+want to run (WHERE YOU ARE MOST LIKELY TO MESS UP IS LEAVING OR USING TRAILING OR LEADING SPACES AND NOT USING THE TAB TO INDENT THE COMMAND LINES YOU ENTER) For a detailed
+understanding of how a 'makefile' works you might review the complete documentation at https://www.gnu.org/software/make/manual/make.html
 \
 ### The docker-compose.yml file
 The ‘docker-compose.yml’ file is the place where the container environment is established.  There are all sorts of videos and other resources that tell you how to set up
@@ -356,4 +358,12 @@ on missions you might review (https://kb.iu.edu/d/abdb).
 Sometimes you might question where Git is pulling its information and it it is set up correctly.  To see where it is pulling from run
 
 `git config --list --show-origin`
+
+### Copy and Paste Across Screen Shared Connection -
+You will find at times you may benefit from being able to copy code from your local machine to another to which you have made a Screen Shared connection.  You have another machine
+that shows up under locations in your 'Finder' and you see it listed as a location.  You have right clicked on the other machine and requested to Screen Share it.  This allows you
+to look at the files on the other machine and even move from directory to directory as you browse them.  But sometimes you find a section of code that you want to copy and then
+bring it over to your local machine and paste it into another file you have open there.  When you do the paste, what you thought should be in the clipboard isn't and either empty
+or whatever you had last copied locally is pasted.  The copy-paste across machines doesn't seem to be working.  All you need to do is go to the machine where you have the 'Screen 
+Sharing' open and move right on it's menu to the 'edit' button, pulling down the list, click on the 'Use Shared Clipboard' option and you will be all set.
 
