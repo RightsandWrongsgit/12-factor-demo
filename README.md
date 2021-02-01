@@ -187,6 +187,20 @@ move, permission, install, and enable the whole shot'n match with a Make Somethi
 
 #### Is this the best place to introduce preparation of an existing site composer update, stop, cron, clear cache, and build its inbound home via its absolutely most current composer.json file in preparation for backup and migration?
 
+Add - To hand the import of Tar.gz files under the Admin/Syncronization of site to bring in an existing site you will bang against upload file size limit very quickly.  So both
+the NGNIX Conf file for the Docker build of that image and the PHP.ini file for Drupal need to have those limits increase, at least temporarily.  Therefore I need to add this:
+Remember that you would want to make this an append to the basic Docker-Compose.YML file in sequence to add to and/or override any items in it.  The logic is to establish a 
+user.ini file that can temporarily adjust things like upload_max_filesize=2M and post_max_size=8M to allow the 'import' function of Drupal synchonization for moving an existing
+site into Docker; otherwise what happens is you get something like "Nginix 413 Request Entity Too Large" error.
+https://forums.docker.com/t/how-to-get-access-to-php-ini-file/68986/31
+
+Of course you also get that error as a function of Nginx limits being set too low in the docker container build and you need to adjust the "Client_max_body_size=xxxM" value too in
+the Nginx Conf file.  But that may be something that I will just keep in the base build after I do the edits for it, so it may not need additional adjustment.  Final documentation
+to be adjusted accordingly.  https://stackoverflow.com/questions/2056124/nginx-client-max-body-size-has-no-effect
+https://zgadzaj.com/development/docker/docker-compose/containers/nginx
+Full NGINX documentation
+https://nginx.org/en/docs/
+
 Add - the key next thing to put in documentation is how you remove the docker-compose.yml installed .src directory and below, replacing it with an empty .src directory 
 in which you run the correct version of (https://github.com/drupal-composer/drupal-project/tree/8.x).  It is likely that this current repository should edit a branch and
 merge it back to MASTER with that step done.  And that a copy of the Drupal install to put in it should be forked from the original to be stored as an addtional 
