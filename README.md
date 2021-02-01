@@ -187,7 +187,7 @@ move, permission, install, and enable the whole shot'n match with a Make Somethi
 
 #### Is this the best place to introduce preparation of an existing site composer update, stop, cron, clear cache, and build its inbound home via its absolutely most current composer.json file in preparation for backup and migration?
 
-Add - To hand the import of Tar.gz files under the Admin/Syncronization of site to bring in an existing site you will bang against upload file size limit very quickly.  So both
+Add - To handle the import of Tar.gz files under the Admin/Syncronization of site to bring in an existing site you will bang against upload file size limit very quickly.  So both
 the NGNIX Conf file for the Docker build of that image and the PHP.ini file for Drupal need to have those limits increase, at least temporarily.  Therefore I need to add this:
 Remember that you would want to make this an append to the basic Docker-Compose.YML file in sequence to add to and/or override any items in it.  The logic is to establish a 
 user.ini file that can temporarily adjust things like upload_max_filesize=2M and post_max_size=8M to allow the 'import' function of Drupal synchonization for moving an existing
