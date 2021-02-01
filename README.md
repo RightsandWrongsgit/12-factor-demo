@@ -367,3 +367,9 @@ bring it over to your local machine and paste it into another file you have open
 or whatever you had last copied locally is pasted.  The copy-paste across machines doesn't seem to be working.  All you need to do is go to the machine where you have the 'Screen 
 Sharing' open and move right on it's menu to the 'edit' button, pulling down the list, click on the 'Use Shared Clipboard' option and you will be all set.
 
+### Finding the Location of your PHP.ini file -
+There are a number of things that are controlled in your php.ini file and it loads so early in the process that you can't do some things in say your settings.php or your
+local.settings.php file to change them.  Therefore, you may need to edit the php.ini file directly.  Some common things might be to edit the memory_limit=128M, the
+upload_max_filesize=2M or the post_max_size=8M entries to increase or limit their values.  Do remember that the post_max_size should be set a little larger than the 
+upload_max_filesize value unless they are very large (e.g. 100M or more) because the uploaded file likely has some additional associated context material with it.  To find the 
+location of your php.ini file, at the command line type `php -i | grep php.ini`
