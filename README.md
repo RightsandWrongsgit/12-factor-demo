@@ -190,7 +190,7 @@ move, permission, install, and enable the whole shot'n match with a Make Somethi
 ## NGINX & nginx.conf ##
 
 NGINX is a web server.  The best way to think of it is almost like a traffic cop combined with a traffic engineer.  It is the flow control point between your browser (e.g. 
-Safari, Chrome, FireFox, etc.) and your application; plus between your application the the resources it utilizes.  For a 100 second long video overview, check this out 
+Safari, Chrome, FireFox, etc.) and your application; plus between your application the the resources it utilizes.  For a 100 second long video overview of NGINX, check this out 
 https://www.youtube.com/watch?v=JKxlsvZXG7c
 
 As a control point, NGNIX provides a map of the connection but it also gives you authority over the format of connections (e.g. http, https, tcp, etc.).  Of equal importance is
