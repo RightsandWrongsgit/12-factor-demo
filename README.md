@@ -213,7 +213,7 @@ is what ‘context’ is applicable.  Since NGINX is managing traffic, you might
 ‘http context’.  If you are wanting to talk to say an additional server that is dedicated to holding your image assets separately from your main application for performance or
 security reasons, you are likely dealing with the 'server context’. The ‘location context’ can be thought of a map to files in directories and subdirectories that you are 
 pointing your application to so it knows where to look.  A big TIP: NGINX starts looking in the most specific (typically longest) path specified in the location context and if 
-the asset is not found works its way to the most general; thus way you usually see an application root level at the top of a syntax list having been set up to in essence specify 
+the asset is not found works its way to the most general; thus why you usually see an application root level at the top of a syntax list having been set up to in essence specify 
 the default but more performance draining backup location because thousands of files might end up being searched on the way to finding the one needed.
 
 So back to how the kind people who made the NGINX image easier to you with that ‘include’ statement at the end.  If you look in the docker-compose.yml file where NGINX is being
