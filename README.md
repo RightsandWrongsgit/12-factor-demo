@@ -187,6 +187,60 @@ move, permission, install, and enable the whole shot'n match with a Make Somethi
 
 #### Is this the best place to introduce preparation of an existing site composer update, stop, cron, clear cache, and build its inbound home via its absolutely most current composer.json file in preparation for backup and migration?
 
+## NGINX & nginx.conf ##
+
+NGINX is a web server.  The best way to think of it is almost like a traffic cop combined with a traffic engineer.  It is the flow control point between your browser (e.g. 
+Safari, Chrome, FireFox, etc.) and your application; plus between your application the the resources it utilizes.  For a 100 second long video overview, check this out 
+https://www.youtube.com/watch?v=JKxlsvZXG7c
+
+As a control point, NGNIX provides a map of the connection but it also gives you authority over the format of connections (e.g. http, https, tcp, etc.).  Of equal importance is
+the fact that it provides control over things that impact capacity and speed, like the number of servers, work processes, cache management, file size, etc.  But don’t freak out,
+a lot of this stuff is set with defaults from your starting point with your website and only after your success leads you to the performance demands of that success do you have
+to mess with a bunch of stuff.  Then you can make edits or add to your nginx configuration.
+
+One thing you do need a perspective on is how this works in a Docker world.  The reason is that when you loaded the NGINX image with docker-compose.yml it brought along that base
+starting point configuration and put the file into the container (in `etc/nginx/nginx.conf`).  I am not saying that with adding tools to your container or some creative remove,
+and move of a modified copy back into the container that you can’t accomplish edits to this foundational nginx configuration file.  But for the vast majority of anything you
+might want to do, the people who put together the version that came automatically as part of the image load made it much easier on you; they ended that file with 
+`include/etc/nginx/conf.d/*.conf;`.   Again, don’t get overly fixated on studying this file but do notice that about ten lines down is a statement beginning with
+`http {` and that the closing bracket for that section is way down at the bottom AFTER the `include /etc/nginx/conf.d/*.conf;` statement.  In the NGNIX jargon we say that the
+include statement, or any of the stuff in that section, are in the http CONTEXT.
+
+<img src="img/nginxconf.png" width="700">
+
+There are three CONTEXTs in NGINX: http, server, and location.  So if you look up how to do anything to modify your nginx configuration, the most fundamental thing to understand 
+is what ‘context’ is applicable.  Since NGINX is managing traffic, you might think that if you are wanting to map anything to a URL, then the context is likely to be in the
+‘http context’.  If you are wanting to talk to say an additional server that is dedicated to holding your image assets separately from your main application for performance or
+security reasons, you are likely dealing with the 'server context’. The ‘location context’ can be thought of a map to files in directories and subdirectories that you are 
+pointing your application to so it knows where to look.  A big TIP: NGINX starts looking in the most specific (typically longest) path specified in the location context and if 
+the asset is not found works its way to the most general; thus way you usually see an application root level at the top of a syntax list having been set up to in essence specify 
+the default but more performance draining backup location because thousands of files might end up being searched on the way to finding the one needed.
+
+So back to how the kind people who made the NGINX image easier to you with that ‘include’ statement at the end.  If you look in the docker-compose.yml file where NGINX is being
+requested and its environment defined, you will see a ‘volume’ statement.  The first item under that volume statement says
+`- ./config/nginx/site.conf:/etc/nginx/conf.d/default.conf:ro`  What this is doing is setting up how the file ‘site.conf’ located on your host machine is being sent for use
+within the container.  Notice that subdirectory in the container ending is …/conf.d/ is the same directory specified in that ‘include’ statement at the end of the
+‘nginx.conf’ file the image loaded.  And how the file named ‘default.conf’ falls within the referenced files defined by ‘*.conf’.  Now you can see how you can easily modify the
+NGINX configuration by making a file on your host machine ending in `.conf` and stating within a docker-compose.yml volume statement how to get it to function within the
+container.  
+
+Putting this into practice, below you will see a modification to the ‘site.conf’ file that was in the original Friedhof repository.  The change is a super simple one in the sense
+all it is doing is changing the size of a file that can be uploaded; client_max_body_size.  There is a default value for that size of 1M; the equivalent statement would be
+`client_max_body_size 1M`.  But Friedhof didn’t have to put that statement in at all because he would have known the default.  If you had a reason to allow a ten megabyte file
+you could change it to `client_max_body_size 10M`.  Or, as has been done in the example below, you could set it to `0` (with no ‘M’ or ‘G’) and now you have totally eliminated 
+any limitation of acceptable file size.  [Add - maybe ok for the CD/CI upload of imported full site files but shift this out in production].
+
+<img src="img/siteconf.png" width="700">
+
+In the above example an edit was made to the site.conf file of Friedhof by putting `client_max_body_size 0;` in all three CONTEXTs.  The first line is in the http context because
+that is where it was when the nginx.conf ‘include’ called any *.conf files.  The context of the other two are pretty obvious just from where they appear in the example.
+
+So do you have to be super smart to do all this configuration stuff in NGINX?  Well if you remember you need additional volume lines in your docker-compose.yml file to get them 
+into the running container, then the answer is no.  You probably can go shopping at the ‘boiler plate’ repository on GitHub that contains a ton of already developed configuration
+adjustments to serve many needs.  https://github.com/nginx-boilerplate/nginx-boilerplate  A little less friendly, but certainly comprehensive is NGNIXs own documentation
+https://nginx.org/en/docs/ When you get to that success level you need some performance tuning, start by watching this video https://www.youtube.com/watch?v=WMsqw68DhIg
+
+
 Add - To handle the import of Tar.gz files under the Admin/Syncronization of site to bring in an existing site you will bang against upload file size limit very quickly.  So both
 the NGNIX Conf file for the Docker build of that image and the PHP.ini file for Drupal need to have those limits increase, at least temporarily.  Therefore I need to add this:
 Remember that you would want to make this an append to the basic Docker-Compose.YML file in sequence to add to and/or override any items in it.  The logic is to establish a 
