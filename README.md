@@ -206,7 +206,7 @@ might want to do, the people who put together the version that came automaticall
 `http {` and that the closing bracket for that section is way down at the bottom AFTER the `include /etc/nginx/conf.d/*.conf;` statement.  In the NGNIX jargon we say that the
 include statement, or any of the stuff in that section, are in the http CONTEXT.
 
-<img src="img/nginxconf.png" width="700">
+<img src="img/nginxconf.png" width="500">
 
 There are three CONTEXTs in NGINX: http, server, and location.  So if you look up how to do anything to modify your nginx configuration, the most fundamental thing to understand 
 is what ‘context’ is applicable.  Since NGINX is managing traffic, you might think that if you are wanting to map anything to a URL, then the context is likely to be in the
@@ -230,7 +230,7 @@ all it is doing is changing the size of a file that can be uploaded; client_max_
 you could change it to `client_max_body_size 10M`.  Or, as has been done in the example below, you could set it to `0` (with no ‘M’ or ‘G’) and now you have totally eliminated 
 any limitation of acceptable file size.  [Add - maybe ok for the CD/CI upload of imported full site files but shift this out in production].
 
-<img src="img/siteconf.png" width="700">
+<img src="img/siteconf.png" width="500">
 
 In the above example an edit was made to the site.conf file of Friedhof by putting `client_max_body_size 0;` in all three CONTEXTs.  The first line is in the http context because
 that is where it was when the nginx.conf ‘include’ called any *.conf files.  The context of the other two are pretty obvious just from where they appear in the example.
